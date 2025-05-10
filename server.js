@@ -51,7 +51,7 @@ function generateRoomCode() {
 }
 
 // Routes
-app.post('/api/rooms', async (req, res) => {
+app.post('https://wesaid.vercel.app/api/rooms', async (req, res) => {
   try {
     const { username } = req.body;
 
