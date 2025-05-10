@@ -54,12 +54,14 @@ function generateRoomCode() {
 app.post('/api/rooms', async (req, res) => {
   try {
     const { username } = req.body;
+
+    // Ensure username is provided
     if (!username) return res.status(400).json({ error: 'Username required' });
 
     let roomCode = generateRoomCode();
     let roomRef = db.collection('rooms').doc(roomCode);
     let roomDoc = await roomRef.get();
-    
+
     // Make sure we generate a unique room code
     while (roomDoc.exists) {
       roomCode = generateRoomCode();
@@ -67,6 +69,7 @@ app.post('/api/rooms', async (req, res) => {
       roomDoc = await roomRef.get();
     }
 
+    // Set the initial room data
     await roomRef.set({
       owner: username,
       players: [username],
@@ -80,7 +83,8 @@ app.post('/api/rooms', async (req, res) => {
       createdAt: firebaseAdmin.firestore.FieldValue.serverTimestamp()
     });
 
-    res.json({ roomCode });
+    // Send the room code back in the response
+    res.status(201).json({ roomCode });
   } catch (error) {
     console.error('Create room error:', error);
     res.status(500).json({ error: 'Failed to create room' });
