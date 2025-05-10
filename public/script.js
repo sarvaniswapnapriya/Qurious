@@ -71,7 +71,7 @@ createRoomBtn.addEventListener('click', async () => {
   }
   
   try {
-    const response = await fetch('https://wesaid-backend.vercel.app/api/rooms/api/rooms', {
+    const response = await fetch('https://wesaid-backend.vercel.app/api/rooms/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
