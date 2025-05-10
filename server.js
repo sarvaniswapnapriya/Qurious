@@ -3,23 +3,29 @@ const cors = require('cors');
 const firebaseAdmin = require('firebase-admin');
 const path = require('path');
 
+
 // Initialize Firebase Admin SDK using accountKey.json
 // Note: Make sure this file is in your project root and has correct permissions
 
 const credentials = JSON.parse(process.env.ACCOUNT_KEY_JSON);
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(credentials),
+  databaseURL: `https://${credentials.project_id}.firebaseio.com`
+});
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(credentials),
-  });
-}
+
+// if (!admin.apps.length) {
+//   admin.initializeApp({
+//     credential: admin.credential.cert(credentials),
+//   });
+// }
 // const serviceAccount = require('./accountKey.json'); 
 // console.log(serviceAccount)
 // firebaseAdmin.initializeApp({
 //   credential: firebaseAdmin.credential.cert(serviceAccount),
 //   databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
 // });
-
+  
 
 const db = firebaseAdmin.firestore();
 const app = express();
