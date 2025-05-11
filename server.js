@@ -30,21 +30,10 @@ firebaseAdmin.initializeApp({
 const db = firebaseAdmin.firestore();
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // Allow requests from any subdomain of vercel.app
-    if (origin.endsWith('.vercel.app') || origin === 'http://localhost:3000') {
-      return callback(null, true);
-    }
-    
-    callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true
-}));
+app.use(cors());
+
+// If you want to handle preflight requests explicitly:
+app.options('*', cors());
 
 
 app.use(express.json());
