@@ -32,9 +32,20 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://wesaid.vercel.app', 'http://localhost:3000'], // allow production + local dev
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow requests from any subdomain of vercel.app
+    if (origin.endsWith('.vercel.app') || origin === 'http://localhost:3000') {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
+
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
