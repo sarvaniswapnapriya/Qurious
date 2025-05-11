@@ -29,7 +29,6 @@ firebaseAdmin.initializeApp({
 
 const db = firebaseAdmin.firestore();
 const app = express();
-const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
@@ -263,6 +262,8 @@ app.post('/api/rooms/:roomCode/switch-turn', async (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+const port = process.env.PORT || 3000;
+
 
 // Start the server
 app.listen(port, () => {
