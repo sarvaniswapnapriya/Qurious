@@ -92,6 +92,7 @@ createRoomBtn.addEventListener('click', async () => {
     // Start polling for game updates
     checkForFriendJoining();
   } catch (error) {
+    console.log("failed directly")
     alert('Failed to create room');
     console.error(error);
   }
