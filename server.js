@@ -6,7 +6,7 @@ const path = require('path');
 
 // Initialize Firebase Admin SDK using accountKey.json
 // Note: Make sure this file is in your project root and has correct permissions
-
+console.log(process.env.ACCOUNT_KEY_JSON);
 const credentials = JSON.parse(process.env.ACCOUNT_KEY_JSON);
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(credentials),
